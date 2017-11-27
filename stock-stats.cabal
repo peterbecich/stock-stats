@@ -17,6 +17,8 @@ library
   hs-source-dirs:      src
   exposed-modules:     Lib
                      , Stats.StockCovariance
+                     , Types.StockPairCovariance
+                     , Types.StockPairCovariance.Redis
   build-depends:       base >= 4.7 && < 5
                      , stock-common >= 0.1.0.0
                      , statistics
