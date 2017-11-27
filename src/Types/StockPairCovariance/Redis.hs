@@ -3,6 +3,7 @@
 module Types.StockPairCovariance.Redis where
 
 import Database.Redis
+import Data.Either
 import Data.UUID
 import Data.Ord
 import qualified Data.ByteString.Char8 as BS
@@ -19,15 +20,52 @@ setPairCovariance pairCovariance = set (BS.pack ("pairCovariance:"++key)) (BS.pa
 
     keyB :: UUID
     keyB = Stock.stockId (stockB pairCovariance)
-    
+
+    -- lower key goes first
     key :: String
     key = case (keyA <= keyB) of
-      True -> (show keyA)++(show keyB)
-      False -> (show keyB)++(show keyA)
+      True -> (show keyA)++":"++(show keyB)
+      False -> (show keyB)++":"++(show keyA)
 
     value :: String
     value = (show (cov pairCovariance))
 
+retrievePairCovariance :: Stock.Stock
+                       -> Stock.Stock
+                       -> Redis (Either Reply (Maybe Double))
+retrievePairCovariance stockA stockB = do
+  let
+    keyA :: UUID
+    keyA = Stock.stockId stockA
 
+    keyB :: UUID
+    keyB = Stock.stockId stockB
 
+    -- lower key goes first
+    key :: String
+    key = case (keyA <= keyB) of
+      True -> (show keyA)++":"++(show keyB)
+      False -> (show keyB)++":"++(show keyA)
+  
+  -- TODO make safe!
+  (Right mBS) <- get (BS.pack (key))
 
+  let
+    -- TODO make safe!
+    bs :: BS.ByteString
+    (Just bs) = mBS
+
+    s :: String
+    s = BS.unpack bs
+
+    d :: Double
+    d = read s
+
+  return $ Right $ Just d
+  
+
+exampleDoubleS :: String
+exampleDoubleS = "-7.63023094369823e-3"
+
+exampleDouble :: Double
+exampleDouble = read exampleDoubleS
