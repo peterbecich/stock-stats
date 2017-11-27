@@ -30,17 +30,11 @@ setPairCovariance pairCovariance = set (BS.pack ("pairCovariance:"++key)) (BS.pa
     value :: String
     value = (show (cov pairCovariance))
 
-retrievePairCovariance :: Stock.Stock
-                       -> Stock.Stock
-                       -> Redis (Either Reply (Maybe Double))
-retrievePairCovariance stockA stockB = do
+retrievePairCovariance' :: UUID
+                        -> UUID
+                        -> Redis (Either Reply (Maybe Double))
+retrievePairCovariance' keyA keyB = do
   let
-    keyA :: UUID
-    keyA = Stock.stockId stockA
-
-    keyB :: UUID
-    keyB = Stock.stockId stockB
-
     -- lower key goes first
     key :: String
     key = case (keyA <= keyB) of
@@ -63,6 +57,18 @@ retrievePairCovariance stockA stockB = do
 
   return $ Right $ Just d
   
+
+retrievePairCovariance :: Stock.Stock
+                       -> Stock.Stock
+                       -> Redis (Either Reply (Maybe Double))
+retrievePairCovariance stockA stockB = retrievePairCovariance' keyA keyB
+  where
+    keyA :: UUID
+    keyA = Stock.stockId stockA
+
+    keyB :: UUID
+    keyB = Stock.stockId stockB
+
 
 exampleDoubleS :: String
 exampleDoubleS = "-7.63023094369823e-3"
