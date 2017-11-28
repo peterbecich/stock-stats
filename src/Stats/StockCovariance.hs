@@ -5,6 +5,7 @@ import Prelude
 import Control.Monad
 import Control.Concurrent
 import Statistics.Sample
+import Data.List
 import qualified Data.Vector as V
 import Data.UUID
 
@@ -72,9 +73,10 @@ pairCovarianceStocks redisConn psqlConn stocks = do
     stockA <- stocks
     stockB <- stocks
     return (stockA, stockB)
+  let stockPairs' = nub stockPairs
   putStrLn $ "pairs of stocks: " ++ show (length stockPairs)
 
-  mapM_ (\(stockA, stockB) -> void $ forkIO $ pairCovariance redisConn psqlConn stockA stockB 100) stockPairs
+  mapM_ (\(stockA, stockB) -> void $ pairCovariance redisConn psqlConn stockA stockB 100) stockPairs
 
   return ()
 
