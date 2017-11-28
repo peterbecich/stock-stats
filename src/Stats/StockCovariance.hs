@@ -63,7 +63,8 @@ pairCovariance _ _ stockA stockB limit = do
 
   return ()
 
-
+-- clearly abysmally slow
+-- tickers are pulled out the DB too many times
 pairCovarianceStocks :: Redis.Connection
                      -> Postgres.Connection
                      -> [Stock]
