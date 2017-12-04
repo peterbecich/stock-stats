@@ -10,7 +10,7 @@ cache:
   - /var/lib/docker
 
 before_install:
-  - docker pull fpco/stack-build:lts-9.13
+  - docker pull fpco/stack-build:lts-9.17
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
   
