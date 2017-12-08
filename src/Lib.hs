@@ -6,3 +6,5 @@ import Stats.StockCovariance
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
+
+

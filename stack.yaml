@@ -18,7 +18,7 @@ ghc-options:
 # https://docs.haskellstack.org/en/stable/docker_integration/
 
 docker:
-  enable: true
+  enable: false
 
   # mount:
   #   - "conf:/usr/local/etc"
