@@ -32,6 +32,4 @@ image:
 
       add:
         conf/: /usr/local/etc/
-        # stock-common/: /usr/local/src/stock-common/
-        stock-common/: stock-common/        
 
