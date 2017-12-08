@@ -10,8 +10,10 @@ cache:
   - /var/lib/docker
 
 before_install:
+  - openssl aes-256-cbc -K $encrypted_b227e55ec8b3_key -iv $encrypted_b227e55ec8b3_iv -in travis_stats_common.enc -out ../keys/travis_stats_common -d
+  - ssh-add travis_stats_common
   - docker pull fpco/stack-build:lts-9.17
-  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  # - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
   
   # Download and unpack the stack executable
@@ -23,12 +25,6 @@ before_install:
 script:
   - stack build
 
-# addons:
-#   apt:
-#     sources:
-#     - hvr-ghc
-#     packages:
-#     - ghc
 
 # https://gist.github.com/petrbel/c3bf7e0f59c22a52f534
 git:
