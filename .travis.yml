@@ -5,6 +5,7 @@ services:
 
 # Caching so the next build will be fast too.
 cache:
+  timeout: 600
   directories:
   - $HOME/.stack
   - /var/lib/docker
@@ -15,7 +16,7 @@ before_install:
   - eval "$(ssh-agent -s)" #start the ssh agent
   - ssh-add travis_stats_common
   - docker pull fpco/stack-build:lts-9.17
-  # - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+
   - git submodule update --init --recursive
   
   # Download and unpack the stack executable
@@ -25,7 +26,8 @@ before_install:
   - stack setup
 
 script:
-  - stack build
+  #- stack build
+  - stack image container
 
 
 # https://gist.github.com/petrbel/c3bf7e0f59c22a52f534
