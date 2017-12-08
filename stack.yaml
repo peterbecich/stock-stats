@@ -3,7 +3,8 @@ resolver: lts-9.17
 
 packages:
 - .
-- stock-common
+#- stock-common
+- /usr/local/src/stock-common/
 
 extra-deps: [yaml-config-0.4.0, stock-common-0.1.0.0]
 
@@ -14,8 +15,14 @@ extra-package-dbs: []
 ghc-options:
   "*": -j -threaded
 
+# https://docs.haskellstack.org/en/stable/docker_integration/
+
 docker:
   enable: true
+
+  mount:
+    - "conf:/usr/local/etc"
+    - "stock-common:/usr/local/src/stock-common"
   
 image:
   containers:
@@ -25,4 +32,5 @@ image:
 
       add:
         conf/: /usr/local/etc/
+        stock-common/: /usr/local/src/stock-common/
 
