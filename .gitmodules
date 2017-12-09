@@ -1,4 +1,0 @@
-[submodule "stock-common"]
-	path = stock-common
-	url = git@github.com:peterbecich/stock-common.git
-	branch = master
