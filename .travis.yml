@@ -6,7 +6,7 @@ services:
 # Caching so the next build will be fast too.
 cache:
   timeout: 600
-  # directories:
+  directories:
   - $HOME/.stack
   - /var/lib/docker
 
