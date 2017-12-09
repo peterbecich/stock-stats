@@ -5,7 +5,9 @@ packages:
 - .
 - ./stock-common
 
-extra-deps: [yaml-config-0.4.0, stock-common-0.1.0.0]
+extra-deps:
+- yaml-config-0.4.0
+- stock-common-0.1.0.0
 
 flags: {}
 
@@ -19,9 +21,8 @@ ghc-options:
 docker:
   enable: true
 
-  # mount:
-  #   - "conf:/usr/local/etc"
-  #   - "stock-common:/usr/local/src/stock-common"
+  mount:
+    - "stock-common:/usr/local/src/stock-common"
   
 image:
   containers:
@@ -31,4 +32,5 @@ image:
 
       add:
         conf/: /usr/local/etc/
+        stock-common/: /usr/local/src/stock-common/
 

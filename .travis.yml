@@ -17,7 +17,7 @@ before_install:
   - ssh-add travis_stats_common
   - docker pull fpco/stack-build:lts-9.17
 
-  - git submodule update --init --recursive
+  # - git submodule update --init --recursive
   
   # Download and unpack the stack executable
   - mkdir -p ~/.local/bin
@@ -26,6 +26,7 @@ before_install:
   - stack setup
 
 script:
+  - pwd
   - stack build
   # - stack image container
 
