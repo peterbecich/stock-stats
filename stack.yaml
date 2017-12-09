@@ -3,7 +3,7 @@ resolver: lts-9.17
 
 packages:
 - .
-- stock-common
+- ./stock-common
 
 extra-deps: [yaml-config-0.4.0, stock-common-0.1.0.0]
 
