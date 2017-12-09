@@ -27,6 +27,8 @@ before_install:
 
 script:
   - pwd
+  - ls
+  - ls stack-common/
   - stack build
   # - stack image container
 
