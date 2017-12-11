@@ -45,6 +45,7 @@ before_install:
   - export PATH=$HOME/.local/bin:$PATH
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
   - stack setup
+  - stack image container
 
 script:
   - pwd
@@ -59,8 +60,8 @@ git:
   submodules: false
 
 after_success:
-  - echo "success; run merge_script.sh"
-  - ./scripts/merge_script.sh
+  # - echo "success; run merge_script.sh"
+  # - ./scripts/merge_script.sh
 
 before_cache:
   # Save tagged docker images
