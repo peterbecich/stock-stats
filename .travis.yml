@@ -25,6 +25,9 @@ before_install:
 
   - openssl aes-256-cbc -K $encrypted_b227e55ec8b3_key -iv $encrypted_b227e55ec8b3_iv -in travis_stats_secrets.tar.enc -out travis_stats_secrets.tar -d
   - tar xvf travis_stats_secrets.tar
+
+  - chmod 600 travis_stats
+  - ssh-add travis_stats
   
   - chmod 600 travis_stats_common
   - ssh-add travis_stats_common
